@@ -9,15 +9,23 @@ import { Provider } from 'react-redux';
 import Store from './components/redux/store';
 import"bootstrap/dist/css/bootstrap.min.css"
 import"bootstrap/dist/js/bootstrap.min.js"
-
+import { ToastContainer } from "react-toastify";
+import { CookiesProvider } from 'react-cookie';
+import { ThemeProvider } from "@material-tailwind/react";
+import 'react-toastify/dist/ReactToastify.css'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={Store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+   <CookiesProvider defaultSetOptions={{ path: '/' }}>
+      <Provider store={Store}>
+        <ThemeProvider>
+          <BrowserRouter>
+            <App />
+            <ToastContainer position="top-right" autoClose={5000}/>
+          </BrowserRouter>
+        </ThemeProvider>
+      </Provider>
+  </CookiesProvider>
   </React.StrictMode>
 );
 

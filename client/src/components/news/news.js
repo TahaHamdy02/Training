@@ -16,6 +16,7 @@ import './../alert/customUi.css';
 import Helmet from 'react-helmet';
 import backimg from'./../../assest/main_background.jpg'
 function News(){
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const submit1 = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
@@ -36,8 +37,8 @@ function News(){
     });
   };
   const back={background:"red"};
-  const users = useSelector(state=>state.users)
-const user = users.filter(user=>user?.online == true)[0]
+//   const users = useSelector(state=>state.users)
+// const user = users.filter(user=>user?.online == true)[0]
 const navigate=useNavigate()
   function handlelogin(){
     navigate('/login')}
@@ -53,7 +54,7 @@ const navigate=useNavigate()
       `}
       </style>
        </Helmet>
-      {user?.online?"":submit1()}
+      {!isAuthenticated&&submit1()}
         <div class="contin mt-3">
         <div class="child-contin">
           <div class="container" style={{fontFamily:"sans-serif"}}>

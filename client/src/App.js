@@ -32,10 +32,41 @@ import AddCertificateDetails from './components/admin Panel/add certificate/Add_
 import { useSelector } from 'react-redux';
 import Jobs from './components/admin Panel/jobs/Jobs';
 import { Toaster } from 'react-hot-toast';
-
+import { useCookies } from 'react-cookie'
+import { useNavigate,useLocation } from 'react-router-dom';
+import React, { useEffect ,useState} from 'react';
+import { useDispatch } from 'react-redux';
+import {currentUser} from "./components/redux/reducers/authSlice"
 function App() {
-  const users = useSelector(state=>state.users)
-  const user = users.filter(user=>user?.online == true)[0]
+  const [isLoading, setIsLoading] = useState(true);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const [cookies] = useCookies([]);
+  let navigate = useNavigate()
+  const dispatch =useDispatch()
+  const location = useLocation();
+  const currentRoute = location.pathname;
+
+  useEffect(() => {
+  const handleNavigation = async () => {
+    if (currentRoute !== "/articles") {
+      if (!cookies.accessToken && !cookies.refreshToken) {
+        navigate('/login');
+      } else {
+        try {
+          await dispatch(currentUser()).unwrap();
+        } catch (error) {
+          console.error("Error fetching current user:", error);
+          navigate('/login');
+        }
+      }
+    }
+    setIsLoading(false); 
+  };
+  handleNavigation();
+}, [cookies.refreshToken, cookies.accessToken, currentRoute, dispatch, navigate])
+if (isLoading) {
+  return null;
+}
     return (
     <>
     <div className="App">
@@ -63,17 +94,17 @@ function App() {
        <Route path='/apps' element={<News/>}/>
        <Route path='/login' element={<LoginComponent/>}/>
        {console.log(user?.role )}
-      {user?.online && <Route path='/jobs' element={<FindJobs/>}/>}
-      {user?.online && (user?.role === 'Student' || user?.role === 'instructor' || user?.role === 'Admin') && (
+      {isAuthenticated && <Route path='/jobs' element={<FindJobs/>}/>}
+      {isAuthenticated && (user?.role === 'Student' || user?.role === 'instructor' || user?.role === 'Admin') && (
       <Route path="/profile" element={<Profile />} />
       )}    
-        {user?.online && user?.role === 'Student'&& (<Route path='/createCv' element={<CvShape/>}/>)}
-        {user?.online && user?.role === 'Student'&& (<Route path='/StudentPanel/coursedetails' element={<Coursedeatels />}/>)}
+        {isAuthenticated && user?.role === 'Student'&& (<Route path='/createCv' element={<CvShape/>}/>)}
+        {isAuthenticated && user?.role === 'Student'&& (<Route path='/StudentPanel/coursedetails' element={<Coursedeatels />}/>)}
         
-        {user?.online && user?.role === 'Student' &&(<Route path='/StudentPanel' element={<PersonalPage/>}/>)}
-        {user?.online &&user?.role === 'instructor' &&<Route path='/instructorPanel' element={<PersonalPage/>}/>}
+        {isAuthenticated && user?.role === 'Student' &&(<Route path='/StudentPanel' element={<PersonalPage/>}/>)}
+        {isAuthenticated &&user?.role === 'instructor' &&<Route path='/instructorPanel' element={<PersonalPage/>}/>}
 
-        {user?.online &&user?.role === 'Admin' && (
+        {isAuthenticated &&user?.role === 'Admin' && (
               <Route path='/adminPanel' element={<AdminPanel/>}>
               <Route path="articles" element={<Articles />} />
               <Route
