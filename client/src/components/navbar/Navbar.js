@@ -20,7 +20,7 @@ const Navbar = () => {
   /************ Server *****************/
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   const Logout = async () => {
     await Api.post('/auth/logout').then(() => {
       navigate("/profile");

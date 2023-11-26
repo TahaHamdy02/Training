@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import './addUser.css'
-import { addUser } from '../../redux/reducers/userSlice.';
+// import { addUser } from '../../redux/reducers/userSlice.';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 function AddUser(){
@@ -40,7 +40,7 @@ function AddUser(){
       
       };
       const handleSuccess =()=>{
-        dispatch(addUser(formData));
+        // dispatch(addUser(formData));
         setFormData({
           fName: '',
           lName: '',
@@ -57,7 +57,7 @@ function AddUser(){
       const publishData = () => {
         // Implement your logic to save the formData
         console.log('Form data:', formData);
-        dispatch(addUser(formData))
+        // dispatch(addUser(formData))
         // You might want to handle the data-saving process using state or sending it to an API.
       };
     return(

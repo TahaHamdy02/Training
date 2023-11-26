@@ -16,7 +16,7 @@ import './../alert/customUi.css';
 import Helmet from 'react-helmet';
 import backimg from'./../../assest/main_background.jpg'
 function News(){
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.user);
   const submit1 = () => {
     confirmAlert({
       customUI: ({ onClose }) => {

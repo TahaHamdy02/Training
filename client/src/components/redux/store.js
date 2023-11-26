@@ -2,16 +2,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import ArticlesSlice from "./reducers/ArticlesSlice.";
 import JobSlice from "./reducers/JobSlice.";
 import CourseSlice from "./reducers/CourseSlice";
-import userSlice from "./reducers/userSlice.";
 import cvDataSlice from "./reducers/cvDataSlice";
 import ApplicationSlice from "./reducers/ApplicationSlice";
 import { CertificateSlice } from "./reducers/certificateSlice";
-import authSlice from "./reducers/authSlice";
+import userSlice from "./reducers/userSlice.";
+// import authSlice from "./reducers/authSlice";
 const Store = configureStore({
   reducer: {
-    auth:authSlice,
+    // auth:authSlice,
     articles:ArticlesSlice,
-    users:userSlice,
+    user:userSlice,
     jobs:JobSlice,
     courses:CourseSlice,
     cvData:cvDataSlice,

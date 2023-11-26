@@ -77,7 +77,7 @@ const LoginComponent = () => {
     register,
     handleSubmit,
   } = useForm();
-  const {loading} =useSelector((state) => state.auth)
+  const {loading} =useSelector((state) => state.user)
   const onSubmit = (data) => {
     dispatch(loginUser(data))
     .unwrap()

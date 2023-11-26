@@ -39,7 +39,7 @@ import { useDispatch } from 'react-redux';
 import {currentUser} from "./components/redux/reducers/authSlice"
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   const [cookies] = useCookies([]);
   let navigate = useNavigate()
   const dispatch =useDispatch()
@@ -49,9 +49,9 @@ function App() {
   useEffect(() => {
   const handleNavigation = async () => {
     if (currentRoute !== "/articles") {
-      if (!cookies.accessToken && !cookies.refreshToken) {
-        navigate('/login');
-      } else {
+      // if (!cookies.accessToken && !cookies.refreshToken) {
+      //   navigate('/login');
+      // } else {
         try {
           await dispatch(currentUser()).unwrap();
         } catch (error) {
@@ -59,7 +59,7 @@ function App() {
           navigate('/login');
         }
       }
-    }
+  // }
     setIsLoading(false); 
   };
   handleNavigation();

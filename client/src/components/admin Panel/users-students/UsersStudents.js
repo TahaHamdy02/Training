@@ -2,19 +2,19 @@ import { faEdit, faPenToSquare, faSearch, faTrash, faTrashCan } from "@fortaweso
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { removeUser } from "../../redux/reducers/userSlice.";
+// import { removeUser } from "../../redux/reducers/userSlice.";
 import { useCallback, useEffect, useState } from "react";
 import moment from "moment";
 function UserStudent(){
   const [search,setSearch]=useState("");
-  const users = useSelector(state=>state.users)
-  const userStudents = users?.filter(user=> user.role === 'Student')
-  let diplayedArr = userStudents;
-  if(search){
-    diplayedArr=userStudents.filter((el)=>el?.lName.toLowerCase()?.includes(search.toLowerCase())||el?.fName.toLowerCase()?.includes(search.toLowerCase()))
-  }else{
-    diplayedArr = userStudents;
-  }
+  // const users = useSelector(state=>state.users)
+  // const userStudents = users?.filter(user=> user.role === 'Student')
+  // let diplayedArr = userStudents;
+  // if(search){
+  //   diplayedArr=userStudents.filter((el)=>el?.lName.toLowerCase()?.includes(search.toLowerCase())||el?.fName.toLowerCase()?.includes(search.toLowerCase()))
+  // }else{
+  //   diplayedArr = userStudents;
+  // }
   const dispatch = useDispatch()
   // useEffect(()=>{
   //     dispatch(fetchCourses())
@@ -23,7 +23,7 @@ function UserStudent(){
   const [isMobile , setIsMobile] = useState(false)
   const [availableWidth ,setAvailableWidth ] = useState(window.innerWidth)
   const handleMobileView = useCallback(() => {
-    console.log(availableWidth,isMobile,userStudents);
+    // console.log(availableWidth,isMobile,userStudents);
     if (availableWidth <= 778) {
       setIsMobile(true);
     } else {
@@ -51,7 +51,7 @@ function UserStudent(){
         
         {
           isMobile ? (<div class="row m-0 mt-5 col-12" id="items" >
-            {diplayedArr?.map((user,index)=>(
+            {/* {diplayedArr?.map((user,index)=>(
               <div class="col-12 text-light user-part" key={index} >
               <button className={user.status?"table_btn publish_btn Active":"bg-secondary table_btn text-light"}>
               {user.status ? "Active" : "inActive"}
@@ -73,7 +73,7 @@ function UserStudent(){
                     <FontAwesomeIcon icon={faEdit} className="table-icon" style={{color:"#bf9b30"}}/>
                     <FontAwesomeIcon icon={faTrash} onClick={()=>dispatch(removeUser(user))} className="table-icon" style={{color:"#bf9b30"}}/>
                   </div>
-              </div>))}
+              </div>))} */}
               <Link to="/adminPanel/addUsers">
               <button class="btn row_btn col-12 text-light mt-4" href="#" role="button" style={{background:"#bf9b30"}}>Create New user</button></Link>
             </div>)
@@ -101,7 +101,7 @@ function UserStudent(){
                 </tr>
                   </thead>
                   <tbody>
-                    {
+                    {/* {
                       diplayedArr?.map((user,index)=>(
                         <tr key={index}>
                           <td>{user.fName} {user.lName}</td>
@@ -119,7 +119,7 @@ function UserStudent(){
                           </td>
                         </tr>
                       ))
-                    }
+                    } */}
                   </tbody>
             </table>
               </div>
